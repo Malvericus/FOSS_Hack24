@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
               childSize: 100,
               radiusDividend: 3,
               customOffset: const Offset(0, 0),
-              // onSelected: (index) => {print("Selected $index")},
+              onSelected: (index) => {print("Selected $index")},
               // centerChild: const Text('Sound'),
               children: [
                 CircularSelectorItem(
