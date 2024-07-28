@@ -1,5 +1,6 @@
-import 'package:circular_navigator/circular_navigator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:circular_selector_v2/circular_selector_v2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,115 +9,78 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Circular Selector Demo',
+      themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(),
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Circular Selector Demo'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  Function(int) testSelected(int selectorIndex) {
+    return (index) {
+      if (kDebugMode) {
+        print('Selected: $index of selector $selectorIndex');
+      }
+    };
+  }
 
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-        appBar: AppBar(
-          // TRY THIS: Try changing the color here to a specific color (to
-          // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-          // change color while the other colors stay the same.
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-        ),
-        body: Container(
-          decoration: BoxDecoration(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Center(
+        child: Stack(children: [
+          Container(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.5)),
-          child: Center(
-            child: CircularSelector(
-              childSize: 100,
-              radiusDividend: 3,
-              customOffset: const Offset(0, 0),
-              onSelected: (index) => {print("Selected $index")},
-              // centerChild: const Text('Sound'),
-              children: [
-                CircularSelectorItem(
-                  child: IconButton(
-                      onPressed: () => {print("Volume Up")},
-                      icon: const Icon(Icons.volume_up)),
-                ),
-                CircularSelectorItem(
-                  child: IconButton(
-                      onPressed: () => {print("Brightness Up")},
-                      icon: const Icon(Icons.brightness_5)),
-                ),
-                CircularSelectorItem(
-                  child: IconButton(
-                      onPressed: () => {print("Volume Down")},
-                      icon: const Icon(Icons.volume_down)),
-                ),
-                CircularSelectorItem(
-                  child: IconButton(
-                      onPressed: () => {print("Brightness Down")},
-                      icon: const Icon(Icons.brightness_3)),
-                ),
-                CircularSelectorItem(
-                  // ignore: prefer_const_constructors
-                  child: IconButton(
-                    onPressed: () => {print("Profile")},
-                    icon: const Icon(Icons.account_circle_outlined),
-                  ),
-                ),
-              ],
             ),
+            child: Stack(alignment: Alignment.center, children: [
+              CircularSelector(
+                onSelected: testSelected(0),
+                childSize: 30.0,
+                radiusDividend: 2.5,
+                customOffset: Offset(
+                  0.0,
+                  AppBar().preferredSize.height -
+                      MediaQuery.of(context).padding.top,
+                ),
+                circleBackgroundColor: const Color.fromARGB(255, 85, 85, 85),
+                children: const [
+                  Icon(Icons.person),
+                  Icon(Icons.notifications),
+                  Icon(Icons.nightlight),
+                  Icon(Icons.volume_up),
+                  Icon(Icons.wb_sunny),
+                  Icon(Icons.settings)
+                ],
+              ),
+              CircularSelector(
+                onSelected: testSelected(2),
+                childSize: 30.0,
+                radiusDividend: 7,
+                customOffset: Offset(
+                  0.0,
+                  AppBar().preferredSize.height -
+                      MediaQuery.of(context).padding.top,
+                ),
+                circleBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                children: const [Icon(Icons.home_filled), Icon(Icons.logout)],
+              ),
+            ]),
           ),
-        ));
+        ]),
+      ),
+    );
   }
 }

@@ -1,6 +1,6 @@
-name: circular_navigator
-description: "A new Flutter package project."
-version: 0.0.1
+name: circular_selector_v2
+description: "Flutter widget which aims to create a novel circular selection technology, made with accessibility and user experience in mind."
+version: 0.2.0
 homepage:
 
 environment:
