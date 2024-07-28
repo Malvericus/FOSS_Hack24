@@ -306,25 +306,14 @@ class _CircularSelectorState extends State<CircularSelector>
       final positionedChild = Positioned(
           left: position.x.toDouble() - widget.childSize * 0.25,
           bottom: position.y.toDouble() - widget.childSize * 0.25,
-          child: MouseRegion(
-              onEnter: (_) => _onHover(i, true),
-              onExit: (_) => _onHover(i, false),
-              child: GestureDetector(
-                onTap: () => _onClick(i),
-                child: Container(
-                  width: widget.childSize * 1.5,
-                  height: widget.childSize * 1.5,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: clickedIndex == i
-                        ? Colors.grey.withOpacity(0.7)
-                        : hoveredIndex == i
-                            ? Colors.grey.withOpacity(0.5)
-                            : Colors.transparent,
-                  ),
-                  child: child,
-                ),
-              )));
+          child: GestureDetector(
+            onTap: () => _onClick(i),
+            child: SizedBox(
+              width: widget.childSize * 1.5,
+              height: widget.childSize * 1.5,
+              child: child,
+            ),
+          ));
       positionedChildren.add(positionedChild);
     }
 
