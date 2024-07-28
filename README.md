@@ -79,8 +79,4 @@ dependencies:
   circular_selector_v2: ^0.2.0
 ```
 
-## Contributing
-
-If you would like to contribute to the package, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
-
 ---
