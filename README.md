@@ -62,6 +62,23 @@ CircularSelector(
 
 For an executable example, refer to the `example` folder.
 
+## FOSS Wear
+
+FOSS Wear is a minimal watch face made using the CircularSelector Widget from the Circular Selector v2 package. Built with Wear OS, it demonstrates the capabilities of the CircularSelector in a practical, user-friendly application.
+You can 
+
+For the executable watch face, refer to the `foss_wear` folder.
+
+To test the watch face, you will need Android Studio and the following dependencies in your pubspec.yaml:
+
+```yaml
+dependencies:
+  audioplayers: ^6.0.0
+  wear: flutter_wear_plugin-master
+  cupertino_icons: ^1.0.6
+  circular_selector_v2: ^0.2.0
+```
+
 ## Contributing
 
 If you would like to contribute to the package, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
